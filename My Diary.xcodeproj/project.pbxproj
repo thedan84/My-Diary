@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195DE31DB3F5A200EAC28A /* AppDelegate.swift */; };
-		78195DE61DB3F5A200EAC28A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195DE51DB3F5A200EAC28A /* ViewController.swift */; };
 		78195DE91DB3F5A200EAC28A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78195DE71DB3F5A200EAC28A /* Main.storyboard */; };
 		78195DEC1DB3F5A200EAC28A /* My_Diary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78195DEA1DB3F5A200EAC28A /* My_Diary.xcdatamodeld */; };
 		78195DEE1DB3F5A200EAC28A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78195DED1DB3F5A200EAC28A /* Assets.xcassets */; };
 		78195DF11DB3F5A200EAC28A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78195DEF1DB3F5A200EAC28A /* LaunchScreen.storyboard */; };
 		78195DFC1DB3F5A200EAC28A /* My_DiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195DFB1DB3F5A200EAC28A /* My_DiaryTests.swift */; };
+		78195E071DB3F62400EAC28A /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */; };
+		78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E081DB3F63100EAC28A /* EntryTableViewController.swift */; };
+		78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E0A1DB3F64E00EAC28A /* EntryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +31,6 @@
 /* Begin PBXFileReference section */
 		78195DE01DB3F5A200EAC28A /* My Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78195DE31DB3F5A200EAC28A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		78195DE51DB3F5A200EAC28A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		78195DE81DB3F5A200EAC28A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		78195DEB1DB3F5A200EAC28A /* My_Diary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = My_Diary.xcdatamodel; sourceTree = "<group>"; };
 		78195DED1DB3F5A200EAC28A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +39,9 @@
 		78195DF71DB3F5A200EAC28A /* My DiaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My DiaryTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78195DFB1DB3F5A200EAC28A /* My_DiaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_DiaryTests.swift; sourceTree = "<group>"; };
 		78195DFD1DB3F5A200EAC28A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
+		78195E081DB3F63100EAC28A /* EntryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
+		78195E0A1DB3F64E00EAC28A /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,9 @@
 			isa = PBXGroup;
 			children = (
 				78195DE31DB3F5A200EAC28A /* AppDelegate.swift */,
-				78195DE51DB3F5A200EAC28A /* ViewController.swift */,
+				78195E081DB3F63100EAC28A /* EntryTableViewController.swift */,
+				78195E0A1DB3F64E00EAC28A /* EntryCell.swift */,
+				78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */,
 				78195DE71DB3F5A200EAC28A /* Main.storyboard */,
 				78195DED1DB3F5A200EAC28A /* Assets.xcassets */,
 				78195DEF1DB3F5A200EAC28A /* LaunchScreen.storyboard */,
@@ -204,8 +210,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78195DE61DB3F5A200EAC28A /* ViewController.swift in Sources */,
 				78195DEC1DB3F5A200EAC28A /* My_Diary.xcdatamodeld in Sources */,
+				78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */,
+				78195E071DB3F62400EAC28A /* EntryDetailViewController.swift in Sources */,
+				78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */,
 				78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
