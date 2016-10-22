@@ -12,7 +12,6 @@
 		780864671DBBB440006FB2F6 /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780864631DBBB440006FB2F6 /* Entry+CoreDataProperties.swift */; };
 		780864681DBBB440006FB2F6 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780864641DBBB440006FB2F6 /* Location+CoreDataClass.swift */; };
 		780864691DBBB440006FB2F6 /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780864651DBBB440006FB2F6 /* Location+CoreDataProperties.swift */; };
-		7808646B1DBBC5CE006FB2F6 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7808646A1DBBC5CE006FB2F6 /* SegueIdentifiers.swift */; };
 		7808646F1DBBD821006FB2F6 /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7808646E1DBBD821006FB2F6 /* SAMTextView.m */; };
 		78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195DE31DB3F5A200EAC28A /* AppDelegate.swift */; };
 		78195DE91DB3F5A200EAC28A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78195DE71DB3F5A200EAC28A /* Main.storyboard */; };
@@ -24,6 +23,7 @@
 		78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E081DB3F63100EAC28A /* EntryTableViewController.swift */; };
 		78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E0A1DB3F64E00EAC28A /* EntryCell.swift */; };
 		787EC1BF1DBB7CA7000E744E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */; };
+		78A6ED521DBBDDC800CF7C28 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A6ED511DBBDDC800CF7C28 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +42,6 @@
 		780864631DBBB440006FB2F6 /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		780864641DBBB440006FB2F6 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
 		780864651DBBB440006FB2F6 /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7808646A1DBBC5CE006FB2F6 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
 		7808646C1DBBD821006FB2F6 /* My Diary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "My Diary-Bridging-Header.h"; sourceTree = "<group>"; };
 		7808646D1DBBD821006FB2F6 /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
 		7808646E1DBBD821006FB2F6 /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		78195E081DB3F63100EAC28A /* EntryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
 		78195E0A1DB3F64E00EAC28A /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		78A6ED511DBBDDC800CF7C28 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 				787EC1C91DBB7EC4000E744E /* View Controllers */,
 				787EC1C81DBB7EBA000E744E /* Core Data Model */,
 				780864601DBB85E8006FB2F6 /* DateFormatter.swift */,
-				7808646A1DBBC5CE006FB2F6 /* SegueIdentifiers.swift */,
+				78A6ED511DBBDDC800CF7C28 /* AlertManager.swift */,
 				78195DE71DB3F5A200EAC28A /* Main.storyboard */,
 				78195DED1DB3F5A200EAC28A /* Assets.xcassets */,
 				78195DEF1DB3F5A200EAC28A /* LaunchScreen.storyboard */,
@@ -263,7 +263,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7808646B1DBBC5CE006FB2F6 /* SegueIdentifiers.swift in Sources */,
 				780864681DBBB440006FB2F6 /* Location+CoreDataClass.swift in Sources */,
 				787EC1BF1DBB7CA7000E744E /* CoreDataManager.swift in Sources */,
 				78195DEC1DB3F5A200EAC28A /* My_Diary.xcdatamodeld in Sources */,
@@ -275,6 +274,7 @@
 				780864661DBBB440006FB2F6 /* Entry+CoreDataClass.swift in Sources */,
 				78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */,
 				7808646F1DBBD821006FB2F6 /* SAMTextView.m in Sources */,
+				78A6ED521DBBDDC800CF7C28 /* AlertManager.swift in Sources */,
 				780864691DBBB440006FB2F6 /* Location+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,8 +22,8 @@ class EntryTableViewController: UITableViewController {
 
         do {
             try coreDataManager.fetchedResultsController.performFetch()
-        } catch {
-            print(error)
+        } catch let error as NSError {
+            AlertManager.showAlert(with: "Error", andMessage: "\(error.localizedDescription)", inViewController: self)
         }
         
         self.tableView.estimatedRowHeight = 80
@@ -50,22 +50,18 @@ class EntryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let entry = coreDataManager.fetchedResultsController.object(at: indexPath)
-            coreDataManager.managedObjectContext.delete(entry)
-            coreDataManager.saveContext()
+            coreDataManager.deleteEntry(entry: entry)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
-        case SegueIdentifiers.showDetail.identifier():
+        if segue.identifier == "showDetail" {
             let nav = segue.destination as! UINavigationController
             let detailVC = nav.topViewController as! EntryDetailViewController
             if let selectedRow = self.tableView.indexPathForSelectedRow {
                 let entry = coreDataManager.fetchedResultsController.object(at: selectedRow)
                 detailVC.entry = entry
             }
-        case SegueIdentifiers.showCreateEntry.identifier(): break
-        default: break
         }
     }
     

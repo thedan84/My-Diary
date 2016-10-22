@@ -65,4 +65,9 @@ class CoreDataManager {
         
         self.saveContext()
     }
+    
+    func deleteEntry(entry: Entry) {
+        managedObjectContext.delete(entry)
+        self.saveContext()
+    }
 }
