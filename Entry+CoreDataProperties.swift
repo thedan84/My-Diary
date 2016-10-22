@@ -12,7 +12,11 @@ import CoreData
 extension Entry {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
-        return NSFetchRequest<Entry>(entityName: "Entry");
+        let fetchRequest = NSFetchRequest<Entry>(entityName: "Entry")
+        let sortDescriptor = NSSortDescriptor(key: "text", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        return fetchRequest
     }
 
     @NSManaged public var text: String?

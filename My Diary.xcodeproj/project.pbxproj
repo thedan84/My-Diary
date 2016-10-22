@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		780864611DBB85E8006FB2F6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780864601DBB85E8006FB2F6 /* DateFormatter.swift */; };
 		78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195DE31DB3F5A200EAC28A /* AppDelegate.swift */; };
 		78195DE91DB3F5A200EAC28A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78195DE71DB3F5A200EAC28A /* Main.storyboard */; };
 		78195DEC1DB3F5A200EAC28A /* My_Diary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78195DEA1DB3F5A200EAC28A /* My_Diary.xcdatamodeld */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		780864601DBB85E8006FB2F6 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		78195DE01DB3F5A200EAC28A /* My Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78195DE31DB3F5A200EAC28A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78195DE81DB3F5A200EAC28A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				78195DE31DB3F5A200EAC28A /* AppDelegate.swift */,
 				787EC1C91DBB7EC4000E744E /* View Controllers */,
 				787EC1C81DBB7EBA000E744E /* Core Data Model */,
+				780864601DBB85E8006FB2F6 /* DateFormatter.swift */,
 				78195DE71DB3F5A200EAC28A /* Main.storyboard */,
 				78195DED1DB3F5A200EAC28A /* Assets.xcassets */,
 				78195DEF1DB3F5A200EAC28A /* LaunchScreen.storyboard */,
@@ -246,6 +249,7 @@
 				787EC1C41DBB7EAE000E744E /* Entry+CoreDataClass.swift in Sources */,
 				78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */,
 				787EC1C71DBB7EAE000E744E /* Location+CoreDataProperties.swift in Sources */,
+				780864611DBB85E8006FB2F6 /* DateFormatter.swift in Sources */,
 				78195E071DB3F62400EAC28A /* EntryDetailViewController.swift in Sources */,
 				78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */,
 				787EC1C61DBB7EAE000E744E /* Location+CoreDataClass.swift in Sources */,

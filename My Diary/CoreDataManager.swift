@@ -11,9 +11,21 @@ import CoreData
 
 class CoreDataManager {
     
-    // MARK: - Core Data stack
+    static let sharedManager = CoreDataManager()
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    // MARK: - Core Data stack
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        return managedObjectContext
+    }()
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<Entry> = {
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: Entry.fetchRequest(), managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        return fetchedResultsController
+    }()
+    
+    fileprivate lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "My_Diary")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -24,7 +36,6 @@ class CoreDataManager {
     }()
     
     // MARK: - Core Data Saving support
-    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

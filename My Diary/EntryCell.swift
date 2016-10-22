@@ -9,16 +9,31 @@
 import UIKit
 
 class EntryCell: UITableViewCell {
+    
+    @IBOutlet weak var entryTextLabel: UILabel!
+    @IBOutlet weak var entryDateLabel: UILabel!
+    @IBOutlet weak var entryImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        entryImageView.isHidden = true
+    }
+    
+    func configureWithEntry(entry: Entry) {
+        self.entryTextLabel.text = entry.text
+        self.entryDateLabel.text = dateFormatter.string(from: entry.date as! Date)
+        
+        if let image = entry.image {
+            self.entryImageView.isHidden = false
+            self.entryImageView.image = UIImage(data: image as Data)
+        }
     }
 
 }
