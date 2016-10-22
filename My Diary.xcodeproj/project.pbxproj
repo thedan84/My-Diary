@@ -16,6 +16,11 @@
 		78195E071DB3F62400EAC28A /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */; };
 		78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E081DB3F63100EAC28A /* EntryTableViewController.swift */; };
 		78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E0A1DB3F64E00EAC28A /* EntryCell.swift */; };
+		787EC1BF1DBB7CA7000E744E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */; };
+		787EC1C41DBB7EAE000E744E /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1C01DBB7EAE000E744E /* Entry+CoreDataClass.swift */; };
+		787EC1C51DBB7EAE000E744E /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1C11DBB7EAE000E744E /* Entry+CoreDataProperties.swift */; };
+		787EC1C61DBB7EAE000E744E /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1C21DBB7EAE000E744E /* Location+CoreDataClass.swift */; };
+		787EC1C71DBB7EAE000E744E /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1C31DBB7EAE000E744E /* Location+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +47,11 @@
 		78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
 		78195E081DB3F63100EAC28A /* EntryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
 		78195E0A1DB3F64E00EAC28A /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
+		787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		787EC1C01DBB7EAE000E744E /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Entry+CoreDataClass.swift"; path = "../Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		787EC1C11DBB7EAE000E744E /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Entry+CoreDataProperties.swift"; path = "../Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		787EC1C21DBB7EAE000E744E /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Location+CoreDataClass.swift"; path = "../Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		787EC1C31DBB7EAE000E744E /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Location+CoreDataProperties.swift"; path = "../Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				78195DE31DB3F5A200EAC28A /* AppDelegate.swift */,
-				78195E081DB3F63100EAC28A /* EntryTableViewController.swift */,
-				78195E0A1DB3F64E00EAC28A /* EntryCell.swift */,
-				78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */,
+				787EC1C91DBB7EC4000E744E /* View Controllers */,
+				787EC1C81DBB7EBA000E744E /* Core Data Model */,
 				78195DE71DB3F5A200EAC28A /* Main.storyboard */,
 				78195DED1DB3F5A200EAC28A /* Assets.xcassets */,
 				78195DEF1DB3F5A200EAC28A /* LaunchScreen.storyboard */,
@@ -103,6 +112,28 @@
 				78195DFD1DB3F5A200EAC28A /* Info.plist */,
 			);
 			path = "My DiaryTests";
+			sourceTree = "<group>";
+		};
+		787EC1C81DBB7EBA000E744E /* Core Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */,
+				787EC1C01DBB7EAE000E744E /* Entry+CoreDataClass.swift */,
+				787EC1C11DBB7EAE000E744E /* Entry+CoreDataProperties.swift */,
+				787EC1C21DBB7EAE000E744E /* Location+CoreDataClass.swift */,
+				787EC1C31DBB7EAE000E744E /* Location+CoreDataProperties.swift */,
+			);
+			name = "Core Data Model";
+			sourceTree = "<group>";
+		};
+		787EC1C91DBB7EC4000E744E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				78195E081DB3F63100EAC28A /* EntryTableViewController.swift */,
+				78195E0A1DB3F64E00EAC28A /* EntryCell.swift */,
+				78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,10 +241,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787EC1BF1DBB7CA7000E744E /* CoreDataManager.swift in Sources */,
 				78195DEC1DB3F5A200EAC28A /* My_Diary.xcdatamodeld in Sources */,
+				787EC1C41DBB7EAE000E744E /* Entry+CoreDataClass.swift in Sources */,
 				78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */,
+				787EC1C71DBB7EAE000E744E /* Location+CoreDataProperties.swift in Sources */,
 				78195E071DB3F62400EAC28A /* EntryDetailViewController.swift in Sources */,
 				78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */,
+				787EC1C61DBB7EAE000E744E /* Location+CoreDataClass.swift in Sources */,
+				787EC1C51DBB7EAE000E744E /* Entry+CoreDataProperties.swift in Sources */,
 				78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +460,7 @@
 				78195E021DB3F5A200EAC28A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		78195E031DB3F5A200EAC28A /* Build configuration list for PBXNativeTarget "My DiaryTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +469,7 @@
 				78195E051DB3F5A200EAC28A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
