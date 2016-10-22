@@ -25,6 +25,9 @@ class EntryTableViewController: UITableViewController {
         } catch {
             print(error)
         }
+        
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     // MARK: - Table view data source
@@ -47,7 +50,8 @@ class EntryTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case SegueIdentifiers.showDetail.identifier():
-            let detailVC = segue.destination as! EntryDetailViewController
+            let nav = segue.destination as! UINavigationController
+            let detailVC = nav.topViewController as! EntryDetailViewController
             if let selectedRow = self.tableView.indexPathForSelectedRow {
                 let entry = coreDataManager.fetchedResultsController.object(at: selectedRow)
                 detailVC.entry = entry

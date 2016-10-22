@@ -13,6 +13,7 @@
 		780864681DBBB440006FB2F6 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780864641DBBB440006FB2F6 /* Location+CoreDataClass.swift */; };
 		780864691DBBB440006FB2F6 /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780864651DBBB440006FB2F6 /* Location+CoreDataProperties.swift */; };
 		7808646B1DBBC5CE006FB2F6 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7808646A1DBBC5CE006FB2F6 /* SegueIdentifiers.swift */; };
+		7808646F1DBBD821006FB2F6 /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7808646E1DBBD821006FB2F6 /* SAMTextView.m */; };
 		78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195DE31DB3F5A200EAC28A /* AppDelegate.swift */; };
 		78195DE91DB3F5A200EAC28A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78195DE71DB3F5A200EAC28A /* Main.storyboard */; };
 		78195DEC1DB3F5A200EAC28A /* My_Diary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78195DEA1DB3F5A200EAC28A /* My_Diary.xcdatamodeld */; };
@@ -42,6 +43,9 @@
 		780864641DBBB440006FB2F6 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
 		780864651DBBB440006FB2F6 /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7808646A1DBBC5CE006FB2F6 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
+		7808646C1DBBD821006FB2F6 /* My Diary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "My Diary-Bridging-Header.h"; sourceTree = "<group>"; };
+		7808646D1DBBD821006FB2F6 /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
+		7808646E1DBBD821006FB2F6 /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
 		78195DE01DB3F5A200EAC28A /* My Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78195DE31DB3F5A200EAC28A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78195DE81DB3F5A200EAC28A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +80,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		780864701DBBD886006FB2F6 /* 3rd Party */ = {
+			isa = PBXGroup;
+			children = (
+				7808646D1DBBD821006FB2F6 /* SAMTextView.h */,
+				7808646E1DBBD821006FB2F6 /* SAMTextView.m */,
+				7808646C1DBBD821006FB2F6 /* My Diary-Bridging-Header.h */,
+			);
+			name = "3rd Party";
+			sourceTree = "<group>";
+		};
 		78195DD71DB3F5A200EAC28A = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +121,7 @@
 				78195DEF1DB3F5A200EAC28A /* LaunchScreen.storyboard */,
 				78195DF21DB3F5A200EAC28A /* Info.plist */,
 				78195DEA1DB3F5A200EAC28A /* My_Diary.xcdatamodeld */,
+				780864701DBBD886006FB2F6 /* 3rd Party */,
 			);
 			path = "My Diary";
 			sourceTree = "<group>";
@@ -193,6 +208,7 @@
 					78195DDF1DB3F5A200EAC28A = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = DEYT8Z7L38;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					78195DF61DB3F5A200EAC28A = {
@@ -258,6 +274,7 @@
 				78195E091DB3F63100EAC28A /* EntryTableViewController.swift in Sources */,
 				780864661DBBB440006FB2F6 /* Entry+CoreDataClass.swift in Sources */,
 				78195DE41DB3F5A200EAC28A /* AppDelegate.swift in Sources */,
+				7808646F1DBBD821006FB2F6 /* SAMTextView.m in Sources */,
 				780864691DBBB440006FB2F6 /* Location+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,11 +414,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DEYT8Z7L38;
 				INFOPLIST_FILE = "My Diary/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.thedan84.My-Diary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "My Diary/My Diary-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -410,11 +430,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DEYT8Z7L38;
 				INFOPLIST_FILE = "My Diary/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.thedan84.My-Diary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "My Diary/My Diary-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

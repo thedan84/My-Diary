@@ -41,7 +41,7 @@ class CoreDataManager {
     }()
     
     // MARK: - Core Data Saving support
-    func saveContext (completion: (Void) -> Void) {
+    func saveContext () {
         if self.managedObjectContext.hasChanges {
             do {
                 try self.managedObjectContext.save()
@@ -50,7 +50,19 @@ class CoreDataManager {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func saveEntry(withText text: String, andImageData imageData: Data?) {
+        let entryDescription = NSEntityDescription.entity(forEntityName: "Entry", in: self.managedObjectContext)!
+        let entry = Entry(entity: entryDescription, insertInto: self.managedObjectContext)
         
-        completion()
+        if let imageData = imageData {
+            entry.image = imageData as NSData
+        }
+        
+        entry.text = text
+        entry.date = Date() as NSDate
+        
+        self.saveContext()
     }
 }
