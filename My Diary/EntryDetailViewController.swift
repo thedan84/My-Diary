@@ -24,6 +24,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             self.entryImageView.image = image!
         }
     }
+    var imageData: Data?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +45,12 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if let entry = self.entry {
             entry.text = text
-            if let image = self.image {
-                if let imageData = UIImageJPEGRepresentation(image, 0.5) {
-                    entry.image = imageData as NSData
-                }
+            if let imageData = self.imageData {
+                entry.image = imageData as NSData
             }
             coreDataManager.saveContext()
         } else {
-            if let image = self.image {
-                let imageData = UIImageJPEGRepresentation(image, 0.5)
-                coreDataManager.saveEntry(withText: text, andImageData: imageData)
-            }
+            coreDataManager.saveEntry(withText: text, andImageData: self.imageData)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -92,6 +88,7 @@ extension EntryDetailViewController: UINavigationControllerDelegate, UIImagePick
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.image = image
+            self.imageData = UIImageJPEGRepresentation(image, 1.0)
         }
         self.dismiss(animated: true, completion: nil)
     }

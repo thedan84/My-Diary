@@ -47,6 +47,14 @@ class EntryTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let entry = coreDataManager.fetchedResultsController.object(at: indexPath)
+            coreDataManager.managedObjectContext.delete(entry)
+            coreDataManager.saveContext()
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case SegueIdentifiers.showDetail.identifier():
