@@ -20,6 +20,11 @@ class EntryTableViewController: UITableViewController {
         
         coreDataManager.fetchedResultsController.delegate = self
 
+        do {
+            try coreDataManager.fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
     }
 
     // MARK: - Table view data source
@@ -40,14 +45,20 @@ class EntryTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        switch segue.identifier! {
+        case SegueIdentifiers.showDetail.identifier():
             let detailVC = segue.destination as! EntryDetailViewController
             if let selectedRow = self.tableView.indexPathForSelectedRow {
                 let entry = coreDataManager.fetchedResultsController.object(at: selectedRow)
                 detailVC.entry = entry
             }
-            
+        case SegueIdentifiers.showCreateEntry.identifier(): break
+        default: break
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

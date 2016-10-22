@@ -19,9 +19,9 @@ extension Entry {
         return fetchRequest
     }
 
-    @NSManaged public var text: String?
-    @NSManaged public var date: NSDate?
+    @NSManaged public var date: NSDate
     @NSManaged public var image: NSData?
+    @NSManaged public var text: String
     @NSManaged public var location: Location?
 
 }

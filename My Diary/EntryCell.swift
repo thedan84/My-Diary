@@ -28,7 +28,7 @@ class EntryCell: UITableViewCell {
     
     func configureWithEntry(entry: Entry) {
         self.entryTextLabel.text = entry.text
-        self.entryDateLabel.text = dateFormatter.string(from: entry.date as! Date)
+        self.entryDateLabel.text = dateFormatter.string(from: entry.date as Date)
         
         if let image = entry.image {
             self.entryImageView.isHidden = false
