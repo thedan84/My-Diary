@@ -47,16 +47,19 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if userDefaults.bool(forKey: "locationEnabled") {
             enableLocationButton.setTitle("Disable Location", for: .normal)
-            
+            locationManager.getLocation()
+            userDefaults.synchronize()
         } else {
             enableLocationButton.setTitle("Enable Location", for: .normal)
+            userDefaults.synchronize()
         }
         
         locationManager.delegate = self
+        mapView.delegate = self
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        guard let text = entryTextView.text else { return }
+        guard let text = entryTextView.text, !entryTextView.text.isEmpty else { AlertManager.showAlert(with: "Missing Input", andMessage: "Please enter a text", inViewController: self); return }
         
         if let entry = self.entry {
             entry.text = text
@@ -99,12 +102,21 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             userDefaults.set(true, forKey: "locationEnabled")
             enableLocationButton.setTitle("Disable Location", for: .normal)
+            locationManager.getLocation()
         }
+        userDefaults.synchronize()
     }
     
     @IBAction func addImageButtonTapped(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
         self.present(imagePicker, animated: true, completion: nil)
     }
 }
@@ -126,5 +138,25 @@ extension EntryDetailViewController: UINavigationControllerDelegate, UIImagePick
 extension EntryDetailViewController: LocationManagerDelegate {
     func locationManagerDidUpdateLocation(manager: LocationManager, location: CLLocation) {
         self.location = location
+        print(location)
     }
+    
+    func locationManagerDidFailWithError(manager: LocationManager, error: Error) {
+        AlertManager.showAlert(with: "Error loading location", andMessage: "\(error)", inViewController: self)
+    }
+}
+
+extension EntryDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        var region = MKCoordinateRegion()
+        region.center = mapView.userLocation.coordinate
+        region.span.latitudeDelta = 0.015
+        region.span.longitudeDelta = 0.015
+        mapView.setRegion(region, animated: true)
+    }
+    
+    func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
+        print("\(error)")
+    }
+    
 }

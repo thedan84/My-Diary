@@ -47,5 +47,7 @@
 	<string>My Diary need access to your Camera so you can shoot your favorite picture.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>My Diary needs access to your location so we can show you the nice places you have visited</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>My Diary needs to access your location</string>
 </dict>
 </plist>

@@ -117,7 +117,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3h1-c6-xdo">
                                         <rect key="frame" x="0.0" y="114.5" width="323" height="104.5"/>
                                         <subviews>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jvu-EC-25u">
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jvu-EC-25u">
                                                 <rect key="frame" x="0.0" y="0.0" width="323" height="104.5"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KE5-Zf-lKD">
@@ -149,6 +149,9 @@
                                     </button>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ord-a0-1ir">
                                         <rect key="frame" x="0.0" y="344" width="323" height="104.5"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="5hm-Ws-xeO" id="qmu-qr-Rpk"/>
+                                        </connections>
                                     </mapView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csD-W6-Zpe">
                                         <rect key="frame" x="0.0" y="458.5" width="323" height="104.5"/>

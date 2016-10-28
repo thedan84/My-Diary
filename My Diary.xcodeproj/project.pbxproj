@@ -24,7 +24,6 @@
 		78195E0B1DB3F64E00EAC28A /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78195E0A1DB3F64E00EAC28A /* EntryCell.swift */; };
 		787EC1BF1DBB7CA7000E744E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */; };
 		789133DF1DC3F27B008B0F9E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789133DE1DC3F27B008B0F9E /* LocationManager.swift */; };
-		789133E21DC3F712008B0F9E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789133E11DC3F712008B0F9E /* MapKit.framework */; };
 		78A6ED521DBBDDC800CF7C28 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A6ED511DBBDDC800CF7C28 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +61,6 @@
 		78195E0A1DB3F64E00EAC28A /* EntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		787EC1BE1DBB7CA7000E744E /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		789133DE1DC3F27B008B0F9E /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		789133E11DC3F712008B0F9E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		78A6ED511DBBDDC800CF7C28 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				789133E21DC3F712008B0F9E /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +98,6 @@
 				78195DE21DB3F5A200EAC28A /* My Diary */,
 				78195DFA1DB3F5A200EAC28A /* My DiaryTests */,
 				78195DE11DB3F5A200EAC28A /* Products */,
-				789133E01DC3F712008B0F9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,14 +158,6 @@
 				78195E061DB3F62300EAC28A /* EntryDetailViewController.swift */,
 			);
 			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		789133E01DC3F712008B0F9E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				789133E11DC3F712008B0F9E /* MapKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -11,13 +11,20 @@ import CoreLocation
 
 protocol LocationManagerDelegate {
     func locationManagerDidUpdateLocation(manager: LocationManager, location: CLLocation)
+    func locationManagerDidFailWithError(manager: LocationManager, error: Error)
 }
 
 class LocationManager: NSObject {
     var locationManager = CLLocationManager()
     var delegate: LocationManagerDelegate?
     
-    func getLocation(completion: (Void) -> Void) {
+    override init() {
+        super.init()
+        
+        locationManager.delegate = self
+    }
+    
+    func getLocation() {
         if CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         } else {
@@ -28,7 +35,7 @@ class LocationManager: NSObject {
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
+        guard let location = locations.first else { return }
         
         self.delegate?.locationManagerDidUpdateLocation(manager: self, location: location)
     }
@@ -40,6 +47,6 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Unresolved error: \(error)")
+        self.delegate?.locationManagerDidFailWithError(manager: self, error: error)
     }
 }
