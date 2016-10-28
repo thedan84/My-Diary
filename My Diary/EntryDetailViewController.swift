@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import CoreLocation
+import MapKit
 
 class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     
@@ -15,8 +17,8 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var entryDateLabel: UILabel!
     @IBOutlet weak var entryImageView: UIImageView!
     @IBOutlet weak var addImageButton: UIButton!
-    
-    var entry: Entry?
+    @IBOutlet weak var enableLocationButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
     
     let coreDataManager = CoreDataManager.sharedManager
     var image: UIImage? {
@@ -24,7 +26,11 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             self.entryImageView.image = image!
         }
     }
+    var entry: Entry?
     var imageData: Data?
+    var location: CLLocation?
+    var locationManager = LocationManager()
+    var userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +44,15 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             self.configureToCreateEntry()
         }
+        
+        if userDefaults.bool(forKey: "locationEnabled") {
+            enableLocationButton.setTitle("Disable Location", for: .normal)
+            
+        } else {
+            enableLocationButton.setTitle("Enable Location", for: .normal)
+        }
+        
+        locationManager.delegate = self
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
@@ -50,7 +65,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             coreDataManager.saveContext()
         } else {
-            coreDataManager.saveEntry(withText: text, andImageData: self.imageData)
+            coreDataManager.saveEntry(withText: text, andImageData: self.imageData, andLocation: self.location)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -77,6 +92,16 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func enableLocationButtonTapped(_ sender: UIButton) {
+        if userDefaults.bool(forKey: "locationEnabled") {
+            userDefaults.set(false, forKey: "locationEnabled")
+            enableLocationButton.setTitle("Enable Location", for: .normal)
+        } else {
+            userDefaults.set(true, forKey: "locationEnabled")
+            enableLocationButton.setTitle("Disable Location", for: .normal)
+        }
+    }
+    
     @IBAction func addImageButtonTapped(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -95,5 +120,11 @@ extension EntryDetailViewController: UINavigationControllerDelegate, UIImagePick
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension EntryDetailViewController: LocationManagerDelegate {
+    func locationManagerDidUpdateLocation(manager: LocationManager, location: CLLocation) {
+        self.location = location
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 class CoreDataManager {
     
@@ -52,7 +53,7 @@ class CoreDataManager {
         }
     }
     
-    func saveEntry(withText text: String, andImageData imageData: Data?) {
+    func saveEntry(withText text: String, andImageData imageData: Data?, andLocation location: CLLocation?) {
         let entryDescription = NSEntityDescription.entity(forEntityName: "Entry", in: self.managedObjectContext)!
         let entry = Entry(entity: entryDescription, insertInto: self.managedObjectContext)
         
@@ -60,10 +61,25 @@ class CoreDataManager {
             entry.image = imageData as NSData
         }
         
+        if let location = location {
+            entry.location = self.saveLocation(withLatitude: location.coordinate.latitude, andLongitude: location.coordinate.longitude, andEntry: entry)
+        }
+        
         entry.text = text
         entry.date = Date() as NSDate
         
         self.saveContext()
+    }
+    
+    fileprivate func saveLocation(withLatitude latitude: Double, andLongitude longitude: Double, andEntry entry: Entry) -> Location {
+        let entityDescription = NSEntityDescription.entity(forEntityName: "Location", in: self.managedObjectContext)!
+        let location = Location(entity: entityDescription, insertInto: self.managedObjectContext)
+        
+        location.latitude = latitude
+        location.longitude = longitude
+        location.entries = [entry]
+        
+        return location
     }
     
     func deleteEntry(entry: Entry) {
