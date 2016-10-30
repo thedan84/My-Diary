@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import CoreLocation
 
-class CoreDataManager {
+public class CoreDataManager {
     
     static let sharedManager = CoreDataManager()
     
@@ -84,6 +84,16 @@ class CoreDataManager {
     func deleteEntry(entry: Entry) {
         managedObjectContext.delete(entry)
         self.saveContext()
+    }
+    
+    func deleteAllEntries() {
+        let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
+        let entries = try! self.managedObjectContext.fetch(fetchRequest)
+        
+        for entry in entries {
+            self.managedObjectContext.delete(entry)
+            self.saveContext()
+        }
     }
     
     //MARK: - Search Helper method
