@@ -140,9 +140,10 @@
                                             <constraint firstAttribute="bottom" secondItem="jvu-EC-25u" secondAttribute="bottom" id="kzo-AS-6Nv"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ux-3m-mTO">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ux-3m-mTO">
                                         <rect key="frame" x="0.0" y="229" width="323" height="105"/>
-                                        <state key="normal" title="Location"/>
+                                        <state key="normal" image="LocationTriangle"/>
+                                        <state key="selected" image="LocationTriangleEnabled"/>
                                         <connections>
                                             <action selector="enableLocationButtonTapped:" destination="5hm-Ws-xeO" eventType="touchUpInside" id="j0W-hG-3dq"/>
                                         </connections>
@@ -232,6 +233,10 @@
             <point key="canvasLocation" x="1278" y="161"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LocationTriangle" width="56" height="52"/>
+        <image name="LocationTriangleEnabled" width="56" height="52"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xdC-TL-ZBc"/>
     </inferredMetricsTieBreakers>

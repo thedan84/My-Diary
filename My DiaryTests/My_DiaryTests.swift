@@ -94,7 +94,7 @@ class My_DiaryTests: XCTestCase {
         XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while creating entry")
     }
     
-    func createEntry() -> Entry {
+    func createEntry() {
         let fakeEntry = Entry(entity: self.entryEntityDescription, insertInto: self.managedObjectContext)
         fakeEntry.text = "Hello there"
         fakeEntry.image = UIImageJPEGRepresentation(UIImage(named: "1371")!, 1.0) as NSData?
@@ -102,7 +102,5 @@ class My_DiaryTests: XCTestCase {
         fakeEntry.date = NSDate()
         
         coreDataManager.saveContext()
-        
-        return fakeEntry
     }
 }

@@ -53,7 +53,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             imageRecognizer.delegate = self
         } else {
             if userDefaults.bool(forKey: locationEnabled) {
-                enableLocationButton.setTitle(disableLocation, for: .normal)
+                enableLocationButton.isSelected = true
                 userDefaults.synchronize()
                 mapView.isHidden = false
                 locationManager.getLocation()
@@ -61,7 +61,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
                     self?.location = location
                 }
             } else {
-                enableLocationButton.setTitle(enableLocation, for: .normal)
+                enableLocationButton.isSelected = false
                 userDefaults.synchronize()
                 mapView.isHidden = true
             }
@@ -130,11 +130,11 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     fileprivate func switchLocationEnabled() {
         if userDefaults.bool(forKey: locationEnabled) {
             userDefaults.set(false, forKey: locationEnabled)
-            enableLocationButton.setTitle(enableLocation, for: .normal)
+            enableLocationButton.isSelected = false
             mapView.isHidden = true
         } else {
             userDefaults.set(true, forKey: locationEnabled)
-            enableLocationButton.setTitle(disableLocation, for: .normal)
+            enableLocationButton.isSelected = true
             locationManager.getLocation()
             locationManager.onLocationFix = { [weak self] location in
                 self?.location = location
