@@ -24,6 +24,9 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var enableLocationButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
+    var accessory: UIView!
+    var hideKeyboardButton: UIButton!
+    
     let coreDataManager = CoreDataManager.sharedManager
     var image: UIImage? {
         didSet {
@@ -68,6 +71,16 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             
             self.configureToCreateEntry()
         }
+        
+        self.entryTextView.layer.cornerRadius = 20
+        self.entryTextView.layer.borderColor = UIColor.lightGray.cgColor
+        self.entryTextView.layer.borderWidth = 2
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        setupKeyboardInput()
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
@@ -142,6 +155,34 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             mapView.isHidden = false
         }
         userDefaults.synchronize()
+    }
+    
+    func dismissKeyboard() {
+        entryTextView.resignFirstResponder()
+    }
+    
+    func setupKeyboardInput() {
+        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 45)
+        accessory = UIView(frame: frame)
+        accessory.backgroundColor = UIColor.lightGray
+        accessory.alpha = 0.6
+        accessory.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.entryTextView.inputAccessoryView = accessory
+        
+        hideKeyboardButton = UIButton(type: .custom)
+        hideKeyboardButton.setTitle("Hide", for: .normal)
+        hideKeyboardButton.setTitleColor(.black, for: .normal)
+        hideKeyboardButton.addTarget(self, action: #selector(dismissKeyboard), for: .touchUpInside)
+        hideKeyboardButton.showsTouchWhenHighlighted = true
+        hideKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        accessory.addSubview(hideKeyboardButton)
+        
+        NSLayoutConstraint.activate([
+            hideKeyboardButton.trailingAnchor.constraint(equalTo: accessory.trailingAnchor, constant: -20),
+            hideKeyboardButton.centerYAnchor.constraint(equalTo: accessory.centerYAnchor)
+            ])
     }
 }
 
