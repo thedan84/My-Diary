@@ -11,6 +11,10 @@ import CoreData
 import CoreLocation
 import MapKit
 
+fileprivate let locationEnabled = "locationEnabled"
+fileprivate let enableLocation = "Enable Location"
+fileprivate let disableLocation = "Disable Location"
+
 class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var entryTextView: SAMTextView!
@@ -48,8 +52,8 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             self.entryImageView.addGestureRecognizer(imageRecognizer)
             imageRecognizer.delegate = self
         } else {
-            if userDefaults.bool(forKey: "locationEnabled") {
-                enableLocationButton.setTitle("Disable Location", for: .normal)
+            if userDefaults.bool(forKey: locationEnabled) {
+                enableLocationButton.setTitle(disableLocation, for: .normal)
                 userDefaults.synchronize()
                 mapView.isHidden = false
                 locationManager.getLocation()
@@ -57,7 +61,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
                     self?.location = location
                 }
             } else {
-                enableLocationButton.setTitle("Enable Location", for: .normal)
+                enableLocationButton.setTitle(enableLocation, for: .normal)
                 userDefaults.synchronize()
                 mapView.isHidden = true
             }
@@ -124,13 +128,13 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     fileprivate func switchLocationEnabled() {
-        if userDefaults.bool(forKey: "locationEnabled") {
-            userDefaults.set(false, forKey: "locationEnabled")
-            enableLocationButton.setTitle("Enable Location", for: .normal)
+        if userDefaults.bool(forKey: locationEnabled) {
+            userDefaults.set(false, forKey: locationEnabled)
+            enableLocationButton.setTitle(enableLocation, for: .normal)
             mapView.isHidden = true
         } else {
-            userDefaults.set(true, forKey: "locationEnabled")
-            enableLocationButton.setTitle("Disable Location", for: .normal)
+            userDefaults.set(true, forKey: locationEnabled)
+            enableLocationButton.setTitle(disableLocation, for: .normal)
             locationManager.getLocation()
             locationManager.onLocationFix = { [weak self] location in
                 self?.location = location

@@ -81,6 +81,12 @@ class CoreDataManager {
         return location
     }
     
+    func deleteEntry(entry: Entry) {
+        managedObjectContext.delete(entry)
+        self.saveContext()
+    }
+    
+    //MARK: - Search Helper method
     func searchEntry(withText text: String) -> [Entry] {
         let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
         fetchRequest.entity = entityDescription
@@ -88,10 +94,5 @@ class CoreDataManager {
         fetchRequest.predicate = predicate
         let entries = try! managedObjectContext.fetch(fetchRequest)
         return entries
-    }
-    
-    func deleteEntry(entry: Entry) {
-        managedObjectContext.delete(entry)
-        self.saveContext()
     }
 }

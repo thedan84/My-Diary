@@ -23,7 +23,7 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
         //Search Bar Configuration
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = true
-        searchController.dimsBackgroundDuringPresentation = true
+        searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.sizeToFit()
         self.tableView.tableHeaderView = searchController.searchBar
         self.searchController.searchBar.delegate = self
@@ -37,7 +37,7 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
             AlertManager.showAlert(with: "Error", andMessage: "\(error.localizedDescription)", inViewController: self)
         }
         
-        self.tableView.estimatedRowHeight = 80
+        self.tableView.estimatedRowHeight = 90
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
@@ -103,7 +103,6 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
     //MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text {
-//            searchEntry(withText: text)
             self.entries = coreDataManager.searchEntry(withText: text)
         }
         self.tableView.reloadData()
