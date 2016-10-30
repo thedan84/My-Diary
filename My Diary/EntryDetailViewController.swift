@@ -51,7 +51,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             if userDefaults.bool(forKey: "locationEnabled") {
                 enableLocationButton.setTitle("Disable Location", for: .normal)
                 userDefaults.synchronize()
-                mapView.delegate = self
+                mapView.isHidden = false
                 locationManager.getLocation()
                 locationManager.onLocationFix = { [weak self] location in
                     self?.location = location
@@ -59,7 +59,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             } else {
                 enableLocationButton.setTitle("Enable Location", for: .normal)
                 userDefaults.synchronize()
-                mapView.delegate = nil
+                mapView.isHidden = true
             }
             
             self.configureToCreateEntry()
@@ -127,7 +127,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         if userDefaults.bool(forKey: "locationEnabled") {
             userDefaults.set(false, forKey: "locationEnabled")
             enableLocationButton.setTitle("Enable Location", for: .normal)
-            mapView.delegate = nil
+            mapView.isHidden = true
         } else {
             userDefaults.set(true, forKey: "locationEnabled")
             enableLocationButton.setTitle("Disable Location", for: .normal)
@@ -135,7 +135,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             locationManager.onLocationFix = { [weak self] location in
                 self?.location = location
             }
-            mapView.delegate = self
+            mapView.isHidden = false
         }
         userDefaults.synchronize()
     }
