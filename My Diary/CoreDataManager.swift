@@ -53,6 +53,7 @@ public class CoreDataManager {
         }
     }
     
+    //MARK: - Save entry
     func saveEntry(withText text: String, andImageData imageData: Data?, andLocation location: CLLocation?) {
         let entryDescription = NSEntityDescription.entity(forEntityName: "Entry", in: self.managedObjectContext)!
         let entry = Entry(entity: entryDescription, insertInto: self.managedObjectContext)
@@ -71,6 +72,7 @@ public class CoreDataManager {
         self.saveContext()
     }
     
+    //MARK: - Save location
     fileprivate func saveLocation(withLatitude latitude: Double, andLongitude longitude: Double, andEntry entry: Entry) -> Location {
         let entityDescription = NSEntityDescription.entity(forEntityName: "Location", in: self.managedObjectContext)!
         let location = Location(entity: entityDescription, insertInto: self.managedObjectContext)
@@ -81,6 +83,8 @@ public class CoreDataManager {
         return location
     }
     
+    
+    //MARK: - Delete entry/entries
     func deleteEntry(entry: Entry) {
         managedObjectContext.delete(entry)
         self.saveContext()

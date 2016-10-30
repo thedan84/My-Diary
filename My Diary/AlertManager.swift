@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK: - Alert Manager
 struct AlertManager {
     static func showAlert(with title: String, andMessage message: String, inViewController viewController: UIViewController) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

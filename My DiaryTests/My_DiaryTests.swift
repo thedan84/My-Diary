@@ -61,13 +61,12 @@ class My_DiaryTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         
         createEntry()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
         coreDataManager.deleteAllEntries()
         super.tearDown()
     }
@@ -94,6 +93,7 @@ class My_DiaryTests: XCTestCase {
         XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while creating entry")
     }
     
+    //MARK: - Helper function
     func createEntry() {
         let fakeEntry = Entry(entity: self.entryEntityDescription, insertInto: self.managedObjectContext)
         fakeEntry.text = "Hello there"

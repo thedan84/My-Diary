@@ -13,10 +13,12 @@ fileprivate let cellIdentifier = "entryCell"
 
 class EntryTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
+    //MARK: - Properties
     let coreDataManager = CoreDataManager.sharedManager
     let searchController = UISearchController(searchResultsController: nil)
     var entries = [Entry]()
 
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +70,7 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
         return cell
     }
     
+    //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if searchController.isActive {
@@ -80,6 +83,11 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let nav = segue.destination as! UINavigationController
@@ -96,10 +104,6 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
     //MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text {
@@ -109,6 +113,7 @@ class EntryTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
 }
 
+//MARK: - NSFetchedResultsControllerDelegate
 extension EntryTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.reloadData()

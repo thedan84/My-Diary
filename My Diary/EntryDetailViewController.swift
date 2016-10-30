@@ -12,11 +12,10 @@ import CoreLocation
 import MapKit
 
 fileprivate let locationEnabled = "locationEnabled"
-fileprivate let enableLocation = "Enable Location"
-fileprivate let disableLocation = "Disable Location"
 
 class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    //MARK: - Properties
     @IBOutlet weak var entryTextView: SAMTextView!
     @IBOutlet weak var entryDateLabel: UILabel!
     @IBOutlet weak var entryImageView: UIImageView!
@@ -45,15 +44,12 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     var locationManager = LocationManager()
     var userDefaults = UserDefaults.standard
     
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let entry = self.entry {
             self.configureWithEntry(entry: entry)
-            
-            let imageRecognizer = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped(_:)))
-            self.entryImageView.addGestureRecognizer(imageRecognizer)
-            imageRecognizer.delegate = self
         } else {
             if userDefaults.bool(forKey: locationEnabled) {
                 enableLocationButton.isSelected = true
@@ -72,6 +68,10 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             self.configureToCreateEntry()
         }
         
+        let imageRecognizer = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped(_:)))
+        self.entryImageView.addGestureRecognizer(imageRecognizer)
+        imageRecognizer.delegate = self
+        
         self.entryTextView.layer.cornerRadius = 20
         self.entryTextView.layer.borderColor = UIColor.lightGray.cgColor
         self.entryTextView.layer.borderWidth = 2
@@ -79,25 +79,12 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.delegate = self
         
         setupKeyboardInput()
     }
     
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
-        guard let text = entryTextView.text, !entryTextView.text.isEmpty else { AlertManager.showAlert(with: "Missing Input", andMessage: "Please enter a text", inViewController: self); return }
-        
-        if let entry = self.entry {
-            entry.text = text
-            if let imageData = self.imageData {
-                entry.image = imageData as NSData
-            }
-            coreDataManager.saveContext()
-        } else {
-            coreDataManager.saveEntry(withText: text, andImageData: self.imageData, andLocation: self.location)
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+    //MARK: - View configuration
     func configureWithEntry(entry: Entry) {
         self.entryTextView.text = entry.text
         self.entryDateLabel.text = "Created at \(dateFormatter.string(from: entry.date as Date))"
@@ -119,6 +106,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         self.addImageButton.isHidden = false
     }
     
+    //MARK: - IBActions
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -140,6 +128,22 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        guard let text = entryTextView.text, !entryTextView.text.isEmpty else { AlertManager.showAlert(with: "Missing Input", andMessage: "Please enter a text", inViewController: self); return }
+        
+        if let entry = self.entry {
+            entry.text = text
+            if let imageData = self.imageData {
+                entry.image = imageData as NSData
+            }
+            coreDataManager.saveContext()
+        } else {
+            coreDataManager.saveEntry(withText: text, andImageData: self.imageData, andLocation: self.location)
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK: - Helper functions
     fileprivate func switchLocationEnabled() {
         if userDefaults.bool(forKey: locationEnabled) {
             userDefaults.set(false, forKey: locationEnabled)
@@ -186,6 +190,7 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: - UIImagePickerControllerDelegate
 extension EntryDetailViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -200,6 +205,7 @@ extension EntryDetailViewController: UINavigationControllerDelegate, UIImagePick
     }
 }
 
+//MARK: - MKMapViewDelegate
 extension EntryDetailViewController: MKMapViewDelegate {
     func addMapAnnotation() {
         removeMapAnnotations()

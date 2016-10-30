@@ -10,10 +10,12 @@ import UIKit
 
 class EntryCell: UITableViewCell {
     
+    //MARK: - Properties
     @IBOutlet weak var entryTextLabel: UILabel!
     @IBOutlet weak var entryDateLabel: UILabel!
     @IBOutlet weak var entryImageView: UIImageView!
 
+    //MARK: - View lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -26,6 +28,7 @@ class EntryCell: UITableViewCell {
         entryImageView.isHidden = true
     }
     
+    //MARK: - Cell configuration
     func configureWithEntry(entry: Entry) {
         self.entryTextLabel.text = entry.text
         self.entryDateLabel.text = dateFormatter.string(from: entry.date as Date)

@@ -10,15 +10,19 @@ import Foundation
 import CoreLocation
 
 class LocationManager: NSObject {
+    
+    //MARK: - Properties
     var locationManager = CLLocationManager()
     var onLocationFix: ((CLLocation) -> Void)?
     
+    //MARK: - Initialization
     override init() {
         super.init()
         
         locationManager.delegate = self
     }
     
+    //MARK: - Get location
     func getLocation() {
         if CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
@@ -27,6 +31,7 @@ class LocationManager: NSObject {
         }
     }
     
+    //MARK: - Load location for entry
     func loadLocationForEntry(entry: Entry) -> CLLocation? {
         guard let location = entry.location else { return nil }
         
@@ -34,6 +39,7 @@ class LocationManager: NSObject {
     }
 }
 
+//MARK: - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
