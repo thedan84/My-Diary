@@ -67,9 +67,7 @@ class CoreDataManager {
         
         entry.text = text
         entry.date = Date() as NSDate
-        
-        print(entry)
-        
+                
         self.saveContext()
     }
     
@@ -81,6 +79,15 @@ class CoreDataManager {
         location.longitude = longitude
         
         return location
+    }
+    
+    func searchEntry(withText text: String) -> [Entry] {
+        let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
+        fetchRequest.entity = entityDescription
+        let predicate = NSPredicate(format: "text contains[cd] %@", text)
+        fetchRequest.predicate = predicate
+        let entries = try! managedObjectContext.fetch(fetchRequest)
+        return entries
     }
     
     func deleteEntry(entry: Entry) {

@@ -11,12 +11,23 @@ import CoreData
 
 fileprivate let cellIdentifier = "entryCell"
 
-class EntryTableViewController: UITableViewController {
+class EntryTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     let coreDataManager = CoreDataManager.sharedManager
+    let searchController = UISearchController(searchResultsController: nil)
+    var entries = [Entry]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Search Bar Configuration
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.dimsBackgroundDuringPresentation = true
+        self.searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
+        self.searchController.searchBar.delegate = self
+        definesPresentationContext = true
         
         coreDataManager.fetchedResultsController.delegate = self
 
@@ -32,25 +43,40 @@ class EntryTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let entries = coreDataManager.fetchedResultsController.fetchedObjects?.count {
-            return entries
+        if searchController.isActive {
+            return entries.count
+        } else {
+            if let entries = coreDataManager.fetchedResultsController.fetchedObjects?.count {
+                return entries
+            }
         }
+        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! EntryCell
         
-        let entry = coreDataManager.fetchedResultsController.object(at: indexPath)
-        cell.configureWithEntry(entry: entry)
-
+        if searchController.isActive {
+            let entry = entries[indexPath.row]
+            cell.configureWithEntry(entry: entry)
+        } else {
+            let entry = coreDataManager.fetchedResultsController.object(at: indexPath)
+            cell.configureWithEntry(entry: entry)
+        }
+    
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let entry = coreDataManager.fetchedResultsController.object(at: indexPath)
-            coreDataManager.deleteEntry(entry: entry)
+            if searchController.isActive {
+                let entry = entries[indexPath.row]
+                coreDataManager.deleteEntry(entry: entry)
+            } else {
+                let entry = coreDataManager.fetchedResultsController.object(at: indexPath)
+                coreDataManager.deleteEntry(entry: entry)
+            }
         }
     }
     
@@ -59,14 +85,28 @@ class EntryTableViewController: UITableViewController {
             let nav = segue.destination as! UINavigationController
             let detailVC = nav.topViewController as! EntryDetailViewController
             if let selectedRow = self.tableView.indexPathForSelectedRow {
-                let entry = coreDataManager.fetchedResultsController.object(at: selectedRow)
-                detailVC.entry = entry
+                if searchController.isActive {
+                    let entry = entries[selectedRow.row]
+                    detailVC.entry = entry
+                } else {
+                    let entry = coreDataManager.fetchedResultsController.object(at: selectedRow)
+                    detailVC.entry = entry
+                }
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //MARK: - UISearchResultsUpdating
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text {
+//            searchEntry(withText: text)
+            self.entries = coreDataManager.searchEntry(withText: text)
+        }
+        self.tableView.reloadData()
     }
 }
 
