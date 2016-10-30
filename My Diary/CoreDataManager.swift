@@ -68,6 +68,8 @@ class CoreDataManager {
         entry.text = text
         entry.date = Date() as NSDate
         
+        print(entry)
+        
         self.saveContext()
     }
     
@@ -77,7 +79,6 @@ class CoreDataManager {
         
         location.latitude = latitude
         location.longitude = longitude
-        location.entries = [entry]
         
         return location
     }

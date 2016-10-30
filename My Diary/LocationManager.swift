@@ -9,14 +9,9 @@
 import Foundation
 import CoreLocation
 
-protocol LocationManagerDelegate {
-    func locationManagerDidUpdateLocation(manager: LocationManager, location: CLLocation)
-    func locationManagerDidFailWithError(manager: LocationManager, error: Error)
-}
-
 class LocationManager: NSObject {
     var locationManager = CLLocationManager()
-    var delegate: LocationManagerDelegate?
+    var onLocationFix: ((CLLocation) -> Void)?
     
     override init() {
         super.init()
@@ -31,13 +26,21 @@ class LocationManager: NSObject {
             locationManager.requestLocation()
         }
     }
+    
+    func loadLocationForEntry(entry: Entry) -> CLLocation? {
+        guard let location = entry.location else { return nil }
+        
+        return CLLocation(latitude: location.latitude, longitude: location.longitude)
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         
-        self.delegate?.locationManagerDidUpdateLocation(manager: self, location: location)
+        if let onLocationFix = onLocationFix {
+            onLocationFix(location)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -47,6 +50,6 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.delegate?.locationManagerDidFailWithError(manager: self, error: error)
+        print("\(error)")
     }
 }

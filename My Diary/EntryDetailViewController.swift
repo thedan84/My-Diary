@@ -23,12 +23,18 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
     let coreDataManager = CoreDataManager.sharedManager
     var image: UIImage? {
         didSet {
+            self.entryImageView.isHidden = false
+            self.addImageButton.isHidden = true
             self.entryImageView.image = image!
         }
     }
     var entry: Entry?
     var imageData: Data?
-    var location: CLLocation?
+    var location: CLLocation? {
+        didSet {
+            addMapAnnotation()
+        }
+    }
     var locationManager = LocationManager()
     var userDefaults = UserDefaults.standard
     
@@ -42,20 +48,22 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
             self.entryImageView.addGestureRecognizer(imageRecognizer)
             imageRecognizer.delegate = self
         } else {
+            if userDefaults.bool(forKey: "locationEnabled") {
+                enableLocationButton.setTitle("Disable Location", for: .normal)
+                userDefaults.synchronize()
+                mapView.delegate = self
+                locationManager.getLocation()
+                locationManager.onLocationFix = { [weak self] location in
+                    self?.location = location
+                }
+            } else {
+                enableLocationButton.setTitle("Enable Location", for: .normal)
+                userDefaults.synchronize()
+                mapView.delegate = nil
+            }
+            
             self.configureToCreateEntry()
         }
-        
-        if userDefaults.bool(forKey: "locationEnabled") {
-            enableLocationButton.setTitle("Disable Location", for: .normal)
-            locationManager.getLocation()
-            userDefaults.synchronize()
-        } else {
-            enableLocationButton.setTitle("Enable Location", for: .normal)
-            userDefaults.synchronize()
-        }
-        
-        locationManager.delegate = self
-        mapView.delegate = self
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
@@ -83,6 +91,8 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             self.addImageButton.isHidden = false
         }
+        
+        self.location = locationManager.loadLocationForEntry(entry: entry)
     }
     
     func configureToCreateEntry() {
@@ -91,20 +101,13 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         self.entryImageView.isHidden = true
         self.addImageButton.isHidden = false
     }
+    
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func enableLocationButtonTapped(_ sender: UIButton) {
-        if userDefaults.bool(forKey: "locationEnabled") {
-            userDefaults.set(false, forKey: "locationEnabled")
-            enableLocationButton.setTitle("Enable Location", for: .normal)
-        } else {
-            userDefaults.set(true, forKey: "locationEnabled")
-            enableLocationButton.setTitle("Disable Location", for: .normal)
-            locationManager.getLocation()
-        }
-        userDefaults.synchronize()
+        switchLocationEnabled()
     }
     
     @IBAction func addImageButtonTapped(_ sender: UIButton) {
@@ -118,6 +121,23 @@ class EntryDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    fileprivate func switchLocationEnabled() {
+        if userDefaults.bool(forKey: "locationEnabled") {
+            userDefaults.set(false, forKey: "locationEnabled")
+            enableLocationButton.setTitle("Enable Location", for: .normal)
+            mapView.delegate = nil
+        } else {
+            userDefaults.set(true, forKey: "locationEnabled")
+            enableLocationButton.setTitle("Disable Location", for: .normal)
+            locationManager.getLocation()
+            locationManager.onLocationFix = { [weak self] location in
+                self?.location = location
+            }
+            mapView.delegate = self
+        }
+        userDefaults.synchronize()
     }
 }
 
@@ -135,28 +155,26 @@ extension EntryDetailViewController: UINavigationControllerDelegate, UIImagePick
     }
 }
 
-extension EntryDetailViewController: LocationManagerDelegate {
-    func locationManagerDidUpdateLocation(manager: LocationManager, location: CLLocation) {
-        self.location = location
-        print(location)
-    }
-    
-    func locationManagerDidFailWithError(manager: LocationManager, error: Error) {
-        AlertManager.showAlert(with: "Error loading location", andMessage: "\(error)", inViewController: self)
-    }
-}
-
 extension EntryDetailViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+    func addMapAnnotation() {
+        removeMapAnnotations()
+        let point = MKPointAnnotation()
+        if let coordinate = self.location?.coordinate {
+            point.coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        }
         var region = MKCoordinateRegion()
-        region.center = mapView.userLocation.coordinate
+        region.center = self.location!.coordinate
         region.span.latitudeDelta = 0.015
         region.span.longitudeDelta = 0.015
         mapView.setRegion(region, animated: true)
+        mapView.addAnnotation(point)
     }
     
-    func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
-        print("\(error)")
+    func removeMapAnnotations() {
+        if mapView.annotations.count != 0 {
+            for annotation in mapView.annotations {
+                mapView.removeAnnotation(annotation)
+            }
+        }
     }
-    
 }
