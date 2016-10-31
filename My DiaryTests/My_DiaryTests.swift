@@ -105,6 +105,7 @@ class My_DiaryTests: XCTestCase {
         let entry = coreDataManager.fetchedResultsController.fetchedObjects?.first
         
         entry?.text = "Something different"
+        entry?.date = NSDate()
         
         XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while changing object")
     }
