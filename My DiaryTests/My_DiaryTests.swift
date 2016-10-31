@@ -72,7 +72,7 @@ class My_DiaryTests: XCTestCase {
     }
     
     //Delete entry
-    func testDeleteEntry() {
+    func testDeleteAllEntries() {
         XCTAssert(coreDataManager.fetchedResultsController.fetchedObjects?.count != 0, "No objects could be fetched")
         
         coreDataManager.deleteAllEntries()
@@ -91,6 +91,41 @@ class My_DiaryTests: XCTestCase {
         coreDataManager.saveEntry(withText: text, andImageData: image, andLocation: location)
         
         XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while creating entry")
+    }
+    
+    func testChangeInEntry() {
+        coreDataManager.deleteAllEntries()
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 0, "There are more or less objects stored")
+        
+        createEntry()
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while creating object")
+        
+        let entry = coreDataManager.fetchedResultsController.fetchedObjects?.first
+        
+        entry?.text = "Something different"
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while changing object")
+    }
+    
+    func testDeleteEntry() {
+        coreDataManager.deleteAllEntries()
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 0, "There are more or less objects in the store")
+        
+        createEntry()
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while creating the object")
+        
+        let entry = coreDataManager.fetchedResultsController.fetchedObjects?.first
+        
+        coreDataManager.managedObjectContext.delete(entry!)
+        
+        coreDataManager.saveContext()
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 0, "There are more or less objects left in the store")
+        
     }
     
     //MARK: - Helper function
