@@ -126,7 +126,22 @@ class My_DiaryTests: XCTestCase {
         coreDataManager.saveContext()
         
         XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 0, "There are more or less objects left in the store")
+    }
+    
+    func testWrongEntry() {
+        coreDataManager.deleteAllEntries()
         
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 0, "There are more or less objects stored")
+        
+        createEntry()
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "Error while creating the object")
+        
+        let entry = coreDataManager.fetchedResultsController.fetchedObjects?.first
+        
+        entry?.text = ""
+        
+        XCTAssert(self.coreDataManager.fetchedResultsController.fetchedObjects?.count == 1, "There are more or less objects stored")
     }
     
     //MARK: - Helper function
